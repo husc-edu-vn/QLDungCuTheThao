@@ -1,0 +1,17 @@
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.csproj.AssemblyReference.cache
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.csproj.SuggestedBindingRedirects.cache
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.frmDungCu.resources
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.Properties.Resources.resources
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.frmThemSuaDungCu.resources
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.csproj.GenerateResource.cache
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.csproj.CoreCompileInputs.cache
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\bin\Debug\QLDungCuTheThao.exe.config
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\bin\Debug\QLDungCuTheThao.exe
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\bin\Debug\QLDungCuTheThao.pdb
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\bin\Debug\EntityFramework.dll
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\bin\Debug\EntityFramework.SqlServer.dll
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\bin\Debug\EntityFramework.xml
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\bin\Debug\EntityFramework.SqlServer.xml
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.csproj.CopyComplete
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.exe
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.pdb
