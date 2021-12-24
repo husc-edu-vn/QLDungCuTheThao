@@ -93,6 +93,16 @@ namespace QLDungCuTheThao.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap null_image {
+            get {
+                object obj = ResourceManager.GetObject("null-image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap refresh_24px {
             get {
                 object obj = ResourceManager.GetObject("refresh_24px", resourceCulture);

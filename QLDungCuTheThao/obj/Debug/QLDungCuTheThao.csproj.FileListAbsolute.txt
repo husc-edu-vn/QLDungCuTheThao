@@ -15,3 +15,7 @@ G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\bin\Debug\EntityFramework.SqlServer.x
 G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.csproj.CopyComplete
 G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.exe
 G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.pdb
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.frmLoaiDungCu.resources
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.frmMuonTra.resources
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.frmThemSuaLoai.resources
+G:\Code\C#\QLDungCuTheThao\QLDungCuTheThao\obj\Debug\QLDungCuTheThao.frmThemSuaMuonTra.resources

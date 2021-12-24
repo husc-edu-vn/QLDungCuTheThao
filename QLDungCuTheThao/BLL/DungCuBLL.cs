@@ -1,4 +1,5 @@
 ﻿using QLDungCuTheThao.DAL;
+using QLDungCuTheThao.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +14,63 @@ namespace QLDungCuTheThao.BLL
     }
     internal class DungCuBLL
     {
-        public static List<DungCu> getList()
+        public static List<DungCuVM> getListVM()
         {
             ModelQLDungCu model = new ModelQLDungCu();
-            return model.DungCus.OrderByDescending(e => e.Id).ToList();
-        }     
-        
-        public static List<DungCu> getListbySearch(String tk)
-        {
-            ModelQLDungCu model = new ModelQLDungCu();
-            return model.DungCus.Where(e => e.Ten.Contains(tk)).ToList();
+            return model.DungCus.Select(e => new DungCuVM
+            {
+                ID = e.Id,
+                IdLoai = e.IdLoai,
+                TenLoai = model.LoaiDungCus.Where(x => x.Id == e.IdLoai).Select(x => x.TenLoai).FirstOrDefault(),
+                Ten = e.Ten,
+                SoLuong = e.SoLuong,
+                MoTa = e.MoTa,
+                NgayThem = e.NgayThem.ToString(),
+                NgayCapNhat = e.NgayCapNhat.ToString(),
+                AnhMoTa = e.AnhMoTa
+            }).ToList();
         }
-        public static KetQua Add(DungCu dc)
+
+        public static DungCu getDungCubyID(long iddc)
+        {
+            ModelQLDungCu model = new ModelQLDungCu();
+            return model.DungCus.Where(e => e.Id == iddc).FirstOrDefault();
+        }
+        public static List<DungCuVM> getListVMbyID(long idloai)
+        {
+            ModelQLDungCu model = new ModelQLDungCu();
+            return model.DungCus.Where(e => e.IdLoai== idloai)
+                .Select(e => new DungCuVM
+            {
+                ID = e.Id,
+                IdLoai = e.IdLoai,
+                TenLoai = model.LoaiDungCus.Where(x => x.Id == e.IdLoai).Select(x => x.TenLoai).FirstOrDefault(),
+                Ten = e.Ten,
+                SoLuong = e.SoLuong,
+                MoTa = e.MoTa,
+                NgayThem = e.NgayThem.ToString(),
+                NgayCapNhat = e.NgayCapNhat.ToString(),
+                AnhMoTa = e.AnhMoTa
+            }).ToList();
+        }
+
+        public static List<DungCuVM> getListbySearch(String tk)
+        {
+            ModelQLDungCu model = new ModelQLDungCu();
+            return model.DungCus.Where(e => e.Ten.Contains(tk)).Select(e => new DungCuVM
+            {
+                ID = e.Id,
+                IdLoai = e.IdLoai,
+                TenLoai = model.LoaiDungCus.Where(x => x.Id == e.IdLoai).Select(x => x.TenLoai).FirstOrDefault(),
+                Ten = e.Ten,
+                SoLuong = e.SoLuong,
+                MoTa = e.MoTa,
+                NgayThem = e.NgayThem.ToString(),
+                NgayCapNhat = (e.NgayCapNhat != null ? e.NgayCapNhat.ToString() : "Đang mượn"),
+                AnhMoTa = e.AnhMoTa
+            }).ToList();
+        }
+        public static KetQua Add(DungCuVM dc)
         {
             ModelQLDungCu model = new ModelQLDungCu();
             var dungcu = model.DungCus.Where(e => e.Ten == dc.Ten).FirstOrDefault();
@@ -36,14 +82,12 @@ namespace QLDungCuTheThao.BLL
             {
                 DateTime localDate = DateTime.Now;
                 dungcu = new DungCu
-                {
+                {                    
+                    IdLoai = dc.IdLoai,                    
                     Ten = dc.Ten,
-                    Gia = dc.Gia,
                     SoLuong = dc.SoLuong,
-                    ThuongHieu = dc.ThuongHieu,
-                    NgaySX = dc.NgaySX,
                     MoTa = dc.MoTa,
-                    NgayThem = localDate,                    
+                    NgayThem = localDate,                     
                     AnhMoTa = dc.AnhMoTa
                 };
                 model.DungCus.Add(dungcu);
@@ -51,10 +95,10 @@ namespace QLDungCuTheThao.BLL
                 return KetQua.ThanhCong;
             }
         }
-        public static KetQua Update(DungCu dc)
+        public static KetQua Update(DungCuVM dc)
         {
             ModelQLDungCu model = new ModelQLDungCu();
-            var dungcu = model.DungCus.Where(e => e.Id != dc.Id && e.Ten == dc.Ten).FirstOrDefault();
+            var dungcu = model.DungCus.Where(e => e.Id != dc.ID && e.Ten == dc.Ten).FirstOrDefault();
             if (dungcu != null)
             {
                 return KetQua.TenTrung;
@@ -62,12 +106,10 @@ namespace QLDungCuTheThao.BLL
             else
             {
                 DateTime localDate = DateTime.Now;
-                dungcu = model.DungCus.Where(e => e.Id == dc.Id).FirstOrDefault();
-                dungcu.Ten = dc.Ten;    
-                dungcu.Gia = dc.Gia;    
-                dungcu.SoLuong = dc.SoLuong;
-                dungcu.ThuongHieu = dc.ThuongHieu;
-                dungcu.NgaySX = dc.NgaySX;
+                dungcu = model.DungCus.Where(e => e.Id == dc.ID).FirstOrDefault();
+                dungcu.IdLoai = dc.IdLoai;
+                dungcu.Ten = dc.Ten;                    
+                dungcu.SoLuong = dc.SoLuong;               
                 dungcu.MoTa = dc.MoTa;               
                 dungcu.NgayCapNhat = localDate;
                 dungcu.AnhMoTa = dc.AnhMoTa;
@@ -75,6 +117,14 @@ namespace QLDungCuTheThao.BLL
                 model.SaveChanges();
                 return KetQua.ThanhCong;
             }
+        }
+        public static KetQua UpdateSL(long iddc, long sl)
+        {
+            ModelQLDungCu model = new ModelQLDungCu();  
+            var dungcu = model.DungCus.Where(e => e.Id == iddc).FirstOrDefault();            
+            dungcu.SoLuong = sl;  
+            model.SaveChanges();
+            return KetQua.ThanhCong;
         }
         public static void Delete(long id)
         {

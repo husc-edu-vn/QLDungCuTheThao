@@ -1,5 +1,6 @@
 ﻿using QLDungCuTheThao.BLL;
 using QLDungCuTheThao.DAL;
+using QLDungCuTheThao.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,26 +17,28 @@ namespace QLDungCuTheThao
 {
     public partial class frmThemSuaDungCu : Form
     {
-        DungCu dungcu;
-        public frmThemSuaDungCu(DungCu dungcu = null)
+        DungCuVM dungcu;
+        public frmThemSuaDungCu(DungCuVM dungcu = null)
         {
             InitializeComponent();
             this.dungcu = dungcu;
+            var ls = LoaiDungCuBLL.getList();
+            cbloai.DataSource = ls;
+            cbloai.DisplayMember = "TenLoai";
+            cbloai.ValueMember = "Id";
             if (dungcu == null)
             {
-                this.Text = "Thêm mới dụng cụ";
+                this.Text = "Thêm Mới Dụng Cụ";
             }
             else
             {
-                this.Text = "Cập nhật dụng cụ";
+                this.Text = "Cập Nhật Dụng Cụ";
                 MemoryStream stream = new MemoryStream(dungcu.AnhMoTa.ToArray());
                 Image img = Image.FromStream(stream);
                 picAnh.Image = img;
-                txtTen.Text = dungcu.Ten;
-                txtGia.Text = dungcu.Gia.ToString();
+                cbloai.SelectedIndex = cbloai.FindStringExact(dungcu.TenLoai);
+                txtTen.Text = dungcu.Ten;                
                 txtSoluong.Text = dungcu.SoLuong.ToString();
-                txtThuonghieu.Text = dungcu.ThuongHieu;
-                dtNgay.Value = (DateTime)(dungcu.NgaySX!=null?dungcu.NgaySX:DateTime.Now);
                 txtMota.Text = dungcu.MoTa;
             }
         }
@@ -43,11 +46,8 @@ namespace QLDungCuTheThao
         private void btndongy_Click(object sender, EventArgs e)
         {
             errorProvider1.Clear();
-            var tendungcu = txtTen.Text;
-            var gia = txtGia.Text;
-            var soluong = txtSoluong.Text;
-            var thuonghieu = txtThuonghieu.Text;
-            var ngaysx = dtNgay.Value;
+            var tendungcu = txtTen.Text;            
+            var soluong = txtSoluong.Text;            
             var mota = txtMota.Text;
             //Xu ly anh
             byte[] image;
@@ -69,22 +69,7 @@ namespace QLDungCuTheThao
                 errorProvider1.SetError(txtTen, "Tên dụng cụ không được để trống");
                 return;
             }
-            if (string.IsNullOrEmpty(gia))
-            {
-                errorProvider1.SetError(txtGia, "Giá không được để trống");
-                return;
-            }
-            long giadungcu;
-            if (!long.TryParse(gia, out giadungcu))
-            {
-                errorProvider1.SetError(txtGia, "Giá phải là số");
-                return;
-            }
-            if (giadungcu < 0)
-            {
-                errorProvider1.SetError(txtGia, "Giá phải là số dương");
-                return;
-            }
+            
             if (string.IsNullOrEmpty(soluong))
             {
                 errorProvider1.SetError(txtSoluong, "Số lượng không được để trống");
@@ -105,25 +90,21 @@ namespace QLDungCuTheThao
             if (dungcu == null)
             {
                 //them moi
-                rs = DungCuBLL.Add(new DungCu
+                rs = DungCuBLL.Add(new DungCuVM
                 {
+                    IdLoai = long.Parse(cbloai.SelectedItem.ToString()),
                     Ten = tendungcu,
-                    Gia = giadungcu,
                     SoLuong = soluongkho,
-                    ThuongHieu = thuonghieu,
-                    NgaySX = ngaysx,
                     MoTa = mota,                    
-                    AnhMoTa = image                 
+                    AnhMoTa = image
                 });
             }
             else
             {
                 //cap nhat
-                dungcu.Ten = tendungcu;
-                dungcu.Gia = giadungcu;
-                dungcu.SoLuong = soluongkho;
-                dungcu.ThuongHieu = thuonghieu;
-                dungcu.NgaySX = ngaysx;
+                dungcu.IdLoai = long.Parse(cbloai.SelectedItem.ToString());
+                dungcu.Ten = tendungcu;                
+                dungcu.SoLuong = soluongkho;               
                 dungcu.MoTa = mota;
                 dungcu.AnhMoTa = image;
 

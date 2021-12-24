@@ -56,13 +56,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\DungCuBLL.cs" />
+    <Compile Include="BLL\LoaiDungCuBLL.cs" />
+    <Compile Include="BLL\TheMuonTraBLL.cs" />
     <Compile Include="DAL\DungCu.cs" />
+    <Compile Include="DAL\LoaiDungCu.cs" />
     <Compile Include="DAL\ModelQLDungCu.cs" />
+    <Compile Include="DAL\TheMuonTra.cs" />
     <Compile Include="frmDungCu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmDungCu.Designer.cs">
       <DependentUpon>frmDungCu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoaiDungCu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoaiDungCu.Designer.cs">
+      <DependentUpon>frmLoaiDungCu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMuonTra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMuonTra.Designer.cs">
+      <DependentUpon>frmMuonTra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmThemSuaLoai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThemSuaLoai.Designer.cs">
+      <DependentUpon>frmThemSuaLoai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmThemSuaMuonTra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThemSuaMuonTra.Designer.cs">
+      <DependentUpon>frmThemSuaMuonTra.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,8 +100,23 @@
     <Compile Include="frmThemSuaDungCu.Designer.cs">
       <DependentUpon>frmThemSuaDungCu.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\DungCuVM.cs" />
+    <Compile Include="ViewModel\LoaiDungCuVM.cs" />
+    <Compile Include="ViewModel\TheMuonTraVM.cs" />
     <EmbeddedResource Include="frmDungCu.resx">
       <DependentUpon>frmDungCu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoaiDungCu.resx">
+      <DependentUpon>frmLoaiDungCu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMuonTra.resx">
+      <DependentUpon>frmMuonTra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmThemSuaLoai.resx">
+      <DependentUpon>frmThemSuaLoai.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmThemSuaMuonTra.resx">
+      <DependentUpon>frmThemSuaMuonTra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,9 +132,12 @@
       <DependentUpon>frmThemSuaDungCu.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\QLDungCuTheThao.BLL.TheMuonTraBLL.datasource" />
     <None Include="Properties\DataSources\QLDungCuTheThao.DAL.DungCu.datasource" />
     <None Include="Properties\DataSources\QLDungCuTheThao.ViewModel.DungCuVM.datasource" />
+    <None Include="Properties\DataSources\QLDungCuTheThao.ViewModel.LoaiDungCuVM.datasource" />
     <None Include="Properties\DataSources\QLDungCuTheThao.ViewModel.MuonTraVM.datasource" />
+    <None Include="Properties\DataSources\QLDungCuTheThao.ViewModel.TheMuonTraVM.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,6 +155,7 @@
     <Content Include="Icons\AddCircle-Linear-32px.png" />
     <Content Include="Icons\CloseCircle-Linear-32px.png" />
     <Content Include="Icons\Edit-Linear-32px.png" />
+    <Content Include="Icons\null-image.png" />
     <Content Include="Icons\refresh_24px.png" />
     <Content Include="Icons\SearchNormal-Linear-24px.png" />
     <Content Include="Icons\SearchNormal-Linear-32px.png" />

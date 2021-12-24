@@ -1,5 +1,6 @@
 ﻿using QLDungCuTheThao.BLL;
 using QLDungCuTheThao.DAL;
+using QLDungCuTheThao.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,19 +19,28 @@ namespace QLDungCuTheThao
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+            loadcomboLoai();
             loadDungCu();
         }
-        void loadDungCu()
+        void loadcomboLoai()
         {
-            var ls = DungCuBLL.getList();
-            dungCuBindingSource.DataSource = ls;
-            dataGridView1.DataSource = dungCuBindingSource;
+            var ls = LoaiDungCuBLL.getList();
+            ls.Insert(0, new LoaiDungCu { Id = -1, TenLoai = "Tất cả" });
+            cbloai.DataSource = ls;
+            cbloai.DisplayMember = "TenLoai";
+            cbloai.ValueMember = "Id";
         }
-        public DungCu selectDungCu
+        void loadDungCu()
+        {            
+            var ls = DungCuBLL.getListVM();
+            dungCuVMBindingSource.DataSource = ls;
+            dataGridView1.DataSource = dungCuVMBindingSource;
+        }
+        public DungCuVM selectDungCu
         {
             get
             {
-                return dungCuBindingSource.Current as DungCu;
+                return dungCuVMBindingSource.Current as DungCuVM;
             }
         }
 
@@ -66,8 +76,8 @@ namespace QLDungCuTheThao
                 {
                     try
                     {
-                        DungCuBLL.Delete(selectDungCu.Id);
-                        dungCuBindingSource.RemoveCurrent();
+                        DungCuBLL.Delete(selectDungCu.ID);
+                        dungCuVMBindingSource.RemoveCurrent();
                         MessageBox.Show("Đã xoá dụng cụ thành công!");
                     }
                     catch (Exception ex)
@@ -81,21 +91,22 @@ namespace QLDungCuTheThao
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
             var timkiem = txtTimKiem.Text;
-            if(timkiem == null)
+            if (timkiem == null)
             {
                 loadDungCu();
             }
             else
             {
                 var ls = DungCuBLL.getListbySearch(timkiem);
-                dungCuBindingSource.DataSource = ls;
-                dataGridView1.DataSource = dungCuBindingSource;
+                dungCuVMBindingSource.DataSource = ls;
+                dataGridView1.DataSource = dungCuVMBindingSource;
             }
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtTimKiem.Text = "";
+            cbloai.SelectedIndex = cbloai.FindStringExact("Tất cả");
             loadDungCu();
         }
 
@@ -111,10 +122,41 @@ namespace QLDungCuTheThao
                 else
                 {
                     var ls = DungCuBLL.getListbySearch(timkiem);
-                    dungCuBindingSource.DataSource = ls;
-                    dataGridView1.DataSource = dungCuBindingSource;
+                    dungCuVMBindingSource.DataSource = ls;
+                    dataGridView1.DataSource = dungCuVMBindingSource;
                 }
             }
+        }
+
+        private void cbloai_SelectedIndexChanged(object sender, EventArgs e)
+        {                    
+            var loai = cbloai.SelectedItem as LoaiDungCu;            
+            if (loai != null && loai.Id < 0)
+            {
+                var ls = DungCuBLL.getListVM();
+                dungCuVMBindingSource.DataSource = ls;
+                dataGridView1.DataSource = dungCuVMBindingSource;
+            }
+            else if(loai != null && loai.Id > 0)
+            {               
+                var ls = DungCuBLL.getListVMbyID(loai.Id);
+                dungCuVMBindingSource.DataSource = ls;
+                dataGridView1.DataSource = dungCuVMBindingSource;
+            }            
+        }
+
+        private void quảnLýLoạiDụngCụToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLoaiDungCu frm = new frmLoaiDungCu();
+            frm.ShowDialog();
+            loadcomboLoai();
+        }
+
+        private void quảnLýMượnTrảToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMuonTra frm = new frmMuonTra();
+            frm.ShowDialog();
+            loadDungCu();
         }
     }
 }
